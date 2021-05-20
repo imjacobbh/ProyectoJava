@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import AppPackage.AnimationClass;
+import controlMySQL.MySqlConn;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
@@ -70,7 +71,6 @@ public class Portada extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -333,7 +333,7 @@ public class Portada extends javax.swing.JFrame {
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
        this.dispose();
-       new LoginJFrame().setVisible(true);
+       new LoginJFrame( new MySqlConn()).setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
