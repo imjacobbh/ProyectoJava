@@ -477,6 +477,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             String cuenta, contraseña, query;
             cuenta = this.jTextFieldUsuario.getText().trim();
             query = "select * from usuarios where usuario = " + "'" + cuenta + "'";
+            
             this.conn.Consult(query);
             try {
                 String contraseñaMySql = this.conn.rs.getString(2);
@@ -485,6 +486,9 @@ public class LoginJFrame extends javax.swing.JFrame {
                 String contraseñaencriptada = DigestUtils.md5Hex(contraseña);
                 if (contraseñaMySql.equals(contraseñaencriptada)) {
                     JOptionPane.showMessageDialog(null, "Bienvenido al sistema " + cuenta);
+                    new JFramePrograma(conn).setVisible(true);
+                    this.clip.stop();
+                    this.dispose();
                 } else {
                     this.jLabelMensajeLogin.setText("La contraseña no coincide");
                 }

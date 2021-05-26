@@ -7,6 +7,7 @@ import java.sql.DriverManager;//clase
 import java.sql.SQLException;
 import java.sql.Statement;//interface
 import java.sql.ResultSet;//interface
+import javax.swing.JOptionPane;
 
 public class MySqlConn {
     public Statement stmt = null;
@@ -49,6 +50,8 @@ public class MySqlConn {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("Error: " + ex.getErrorCode());
+            
+            
         }
     }
     public int Update(String query){
