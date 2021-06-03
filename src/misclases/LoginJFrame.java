@@ -388,6 +388,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseMoved
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+       
         if (aux == false) {
 
             if (auxIterator != this.imagenesGaleria.size()) {
@@ -477,8 +478,11 @@ public class LoginJFrame extends javax.swing.JFrame {
             String cuenta, contraseña, query;
             cuenta = this.jTextFieldUsuario.getText().trim();
             query = "select * from usuarios where usuario = " + "'" + cuenta + "'";
-            
+            try{
             this.conn.Consult(query);
+            }catch(java.lang.NullPointerException ex){
+                this.jLabelMensajeLogin.setText("No se ha podido realizar conexion con la base de datos");
+            }
             try {
                 String contraseñaMySql = this.conn.rs.getString(2);
                 char[] passwd = this.jPasswordFieldContraseña.getPassword();

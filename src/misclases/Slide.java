@@ -28,6 +28,7 @@ public class Slide {
               {
                 Thread.sleep(delay);
                 jLabel.setLocation(i, jLabel.getY());
+                
               }
               catch (InterruptedException e)
               {

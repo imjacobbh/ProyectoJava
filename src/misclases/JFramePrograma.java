@@ -8,6 +8,16 @@ package misclases;
 import AppPackage.AnimationClass;
 import controlMySQL.MySqlConn;
 import java.awt.Color;
+import java.io.File;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
@@ -23,22 +33,73 @@ public class JFramePrograma extends javax.swing.JFrame {
     Slide slide = new Slide();
     boolean slided = false;
     MySqlConn conn;
+    HashMap<String, String> galeria;
+    Iterator it;
+    boolean aux = false;//ayuda a manejo de galeria
+    File dirMusic;
+    boolean audioOn = true;
+    long posicionClip;
+    Clip clip;
 
     public JFramePrograma() {
         initComponents();
+        this.jPanelGaleria.setVisible(false);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.jLabelOpcion.setText("Inicio");
         this.jPanel1.removeAll();
         this.jPanel1.add(this.JPanelInicio);
         this.jPanel1.repaint();
         this.jPanel1.revalidate();
+
     }
+
     public JFramePrograma(MySqlConn conn) {
         this.conn = conn;
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         this.jLabelOpcion.setText("Inicio");
+
+        String query = "SELECT * FROM `galeria`";
+        this.conn.Consult(query);
+        int n = 0, i = 0;
+        try {
+            this.conn.rs.last();//se posiciona en el ultimo elemento de la tabla
+            n = this.conn.rs.getRow();//regresa el numero actual del registro
+            this.conn.rs.first(); //se posiciona en el primer registro de la tabla
+        } catch (Exception e) {
+            System.out.println(" Error #1");
+        }
+        if (n != 0) {
+            galeria = new HashMap<String, String>();
+            while (i < n) {
+                try {
+                    galeria.put(this.conn.rs.getString("nombre"), this.conn.rs.getString("ubicacion"));
+                    this.conn.rs.next();
+                    i++;
+                } catch (SQLException ex) {
+                    Logger.getLogger(JFramePrograma.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            this.it = galeria.entrySet().iterator();
+            this.jPanelGaleria.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Galeria vacia");
+        }
+        try {
+            dirMusic = new File("src/audio/audioPrograma.wav");
+            if (dirMusic.exists()) {
+                AudioInputStream audio = AudioSystem.getAudioInputStream(dirMusic);
+                clip = AudioSystem.getClip();
+                clip.open(audio);
+                clip.start();
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
+            } else {
+                JOptionPane.showMessageDialog(null, "El audio no fue encontrado");
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -69,9 +130,14 @@ public class JFramePrograma extends javax.swing.JFrame {
         jLabelUsuarioText = new javax.swing.JLabel();
         jLabelSalirText = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        JPanelRegistro = new JPanelRegistro(conn);
         JPanelInicio = new javax.swing.JPanel();
-        JPanelSalidas = new javax.swing.JPanel();
+        jPanelGaleria = new javax.swing.JPanel();
+        jLabelSiguenteImagen = new javax.swing.JLabel();
+        jLabelGaleria2 = new javax.swing.JLabel();
+        jLabelGaleriaName = new javax.swing.JLabel();
+        jLabelAudio = new javax.swing.JLabel();
+        JPanelRegistro = new JPanelRegistro(conn);
+        JPanelSalidas = new JPanelSalida(conn);
         JPanelConsultas = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -547,13 +613,56 @@ public class JFramePrograma extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
         jPanel1.setLayout(new java.awt.CardLayout());
+
+        JPanelInicio.setBackground(new java.awt.Color(255, 255, 255));
+        JPanelInicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanelGaleria.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelGaleria.setOpaque(false);
+        jPanelGaleria.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelSiguenteImagen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSiguenteImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/next.png"))); // NOI18N
+        jLabelSiguenteImagen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelSiguenteImagen.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelSiguenteImagenMouseClicked(evt);
+            }
+        });
+        jPanelGaleria.add(jLabelSiguenteImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 840, 70));
+
+        jLabelGaleria2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelGaleria2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/galeria0.jpg"))); // NOI18N
+        jLabelGaleria2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelGaleria2MouseClicked(evt);
+            }
+        });
+        jPanelGaleria.add(jLabelGaleria2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 600));
+
+        JPanelInicio.add(jPanelGaleria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 840, 600));
+
+        jLabelGaleriaName.setBackground(new java.awt.Color(214, 173, 96));
+        jLabelGaleriaName.setFont(new java.awt.Font("Decker", 1, 24)); // NOI18N
+        jLabelGaleriaName.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelGaleriaName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelGaleriaName.setText("NUESTRO LOGO");
+        jLabelGaleriaName.setOpaque(true);
+        JPanelInicio.add(jLabelGaleriaName, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 350, 330, 100));
+
+        jLabelAudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/slider_on.png"))); // NOI18N
+        jLabelAudio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabelAudio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelAudioMouseClicked(evt);
+            }
+        });
+        JPanelInicio.add(jLabelAudio, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 0, 50, -1));
+
+        jPanel1.add(JPanelInicio, "card5");
         jPanel1.add(JPanelRegistro, "card4");
 
-        JPanelInicio.setBackground(new java.awt.Color(255, 204, 204));
-        JPanelInicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(JPanelInicio, "card5");
-
-        JPanelSalidas.setBackground(new java.awt.Color(0, 153, 153));
+        JPanelSalidas.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(JPanelSalidas, "card3");
 
         JPanelConsultas.setBackground(new java.awt.Color(153, 51, 255));
@@ -746,7 +855,7 @@ public class JFramePrograma extends javax.swing.JFrame {
             this.slided = true;
         } else {
             this.slide.jPanelXIzquierda(45, -205, 5, 5, this.jPanelLabelsMenu);
-           
+
             this.slided = false;
         }
         this.jLabelMenu.setFocusable(true);
@@ -1119,6 +1228,39 @@ public class JFramePrograma extends javax.swing.JFrame {
         this.jLabelSalirText.setBackground(this.jPanelIconSalir.getBackground());
     }//GEN-LAST:event_jLabelSalirTextMouseReleased
 
+    private void jLabelSiguenteImagenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelSiguenteImagenMouseClicked
+
+        if (it.hasNext()) {
+            Map.Entry pair = (Map.Entry) it.next();
+            this.jLabelGaleria2.setIcon(new javax.swing.ImageIcon(getClass().getResource((String) pair.getValue())));
+            this.jLabelGaleriaName.setText(((String) pair.getKey()).toUpperCase());
+        } else {
+            it = galeria.entrySet().iterator();
+            Map.Entry pair = (Map.Entry) it.next();
+            this.jLabelGaleria2.setIcon(new javax.swing.ImageIcon(getClass().getResource((String) pair.getValue())));
+            this.jLabelGaleriaName.setText(((String) pair.getKey()).toUpperCase());
+        }
+
+    }//GEN-LAST:event_jLabelSiguenteImagenMouseClicked
+
+    private void jLabelGaleria2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelGaleria2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelGaleria2MouseClicked
+
+    private void jLabelAudioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelAudioMouseClicked
+        if (audioOn == true) {
+            this.jLabelAudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/slider_off.png")));
+            audioOn = false;
+            this.posicionClip = clip.getMicrosecondPosition();
+            clip.stop();
+        } else {
+            this.jLabelAudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/slider_on.png")));
+            audioOn = true;
+            clip.setMicrosecondPosition(posicionClip);
+            clip.start();
+        }
+    }//GEN-LAST:event_jLabelAudioMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1159,22 +1301,27 @@ public class JFramePrograma extends javax.swing.JFrame {
     private javax.swing.JPanel JPanelInicio;
     private javax.swing.JPanel JPanelRegistro;
     private javax.swing.JPanel JPanelSalidas;
+    private javax.swing.JLabel jLabelAudio;
     private javax.swing.JLabel jLabelBuscarIcon;
     private javax.swing.JLabel jLabelCheckIn;
     private javax.swing.JLabel jLabelCheckInText;
     private javax.swing.JLabel jLabelCheckOut;
     private javax.swing.JLabel jLabelCheckOutText;
     private javax.swing.JLabel jLabelConsultaText;
+    private javax.swing.JLabel jLabelGaleria2;
+    private javax.swing.JLabel jLabelGaleriaName;
     private javax.swing.JLabel jLabelHome;
     private javax.swing.JLabel jLabelInicio;
     private javax.swing.JLabel jLabelMenu;
     private javax.swing.JLabel jLabelOpcion;
     private javax.swing.JLabel jLabelSalir;
     private javax.swing.JLabel jLabelSalirText;
+    private javax.swing.JLabel jLabelSiguenteImagen;
     private javax.swing.JLabel jLabelUsuarioIcon;
     private javax.swing.JLabel jLabelUsuarioText;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBarra;
+    private javax.swing.JPanel jPanelGaleria;
     private javax.swing.JPanel jPanelIconBuscar;
     private javax.swing.JPanel jPanelIconCheckIn;
     private javax.swing.JPanel jPanelIconCheckOut;

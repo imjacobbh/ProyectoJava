@@ -6,11 +6,15 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -32,6 +36,7 @@ public class JPanelRegistro extends javax.swing.JPanel {
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
+        
     }
 
     public JPanelRegistro() {
@@ -47,8 +52,37 @@ public class JPanelRegistro extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        JPanelReciboReg = new javax.swing.JPanel();
+        jLabelRegistroCompletadoLogo = new javax.swing.JLabel();
+        jButtonContinuar = new javax.swing.JButton();
+        jLabelCiudadConf = new javax.swing.JLabel();
+        jLabelFechaSalConf = new javax.swing.JLabel();
+        jLabelNombreConf = new javax.swing.JLabel();
+        jLabelFechaIngConf1 = new javax.swing.JLabel();
+        jLabelFechaSalConfU = new javax.swing.JLabel();
+        jLabelFechaIngConfU = new javax.swing.JLabel();
+        jLabelCiudadConfU = new javax.swing.JLabel();
+        jLabelNombreConfU = new javax.swing.JLabel();
+        jLabelNumeroHabConf = new javax.swing.JLabel();
+        jLabelNumeroHabConfU = new javax.swing.JLabel();
+        jLabelNumeroPisoConf = new javax.swing.JLabel();
+        jLabelPisoU = new javax.swing.JLabel();
+        jLabelTipo = new javax.swing.JLabel();
+        jLabelTipoU = new javax.swing.JLabel();
+        jLabelDatosCliente = new javax.swing.JLabel();
+        jSeparatorCiudadOrig2 = new javax.swing.JSeparator();
+        jLabelDatosCliente1 = new javax.swing.JLabel();
+        jSeparatorCiudadOrig3 = new javax.swing.JSeparator();
+        jLabelLimite = new javax.swing.JLabel();
+        jLabelLimiteT = new javax.swing.JLabel();
+        jLabelTipoD1 = new javax.swing.JLabel();
+        jCheckBoxDosExtraConf = new javax.swing.JCheckBox();
+        jLabelTotalOcupantes = new javax.swing.JLabel();
+        jLabelTipoD2 = new javax.swing.JLabel();
+        jLabelOcupantes = new javax.swing.JLabel();
+        jCheckBoxExtraConf = new javax.swing.JCheckBox();
         jLabelHeader = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        jPanelDatos = new javax.swing.JPanel();
         jTextFieldNombre = new javax.swing.JTextField();
         jLabelNombre = new javax.swing.JLabel();
         jSeparatorNombre = new javax.swing.JSeparator();
@@ -59,7 +93,7 @@ public class JPanelRegistro extends javax.swing.JPanel {
         jLabelCiudadOrigen = new javax.swing.JLabel();
         jTextFieldCiudadOrigen = new javax.swing.JTextField();
         jSeparatorCiudadOrig = new javax.swing.JSeparator();
-        jSpinner1 = new javax.swing.JSpinner();
+        jSpinnerNumDias = new javax.swing.JSpinner();
         jLabelFechaIngreso = new javax.swing.JLabel();
         jDateChooserSalida = new com.toedter.calendar.JDateChooser();
         jLabelFechaIngreso1 = new javax.swing.JLabel();
@@ -77,11 +111,171 @@ public class JPanelRegistro extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        JPanelReciboReg.setBackground(new java.awt.Color(255, 255, 255));
+        JPanelReciboReg.setMinimumSize(new java.awt.Dimension(1325, 710));
+        JPanelReciboReg.setPreferredSize(new java.awt.Dimension(1325, 710));
+        JPanelReciboReg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelRegistroCompletadoLogo.setFont(new java.awt.Font("Decker", 0, 48)); // NOI18N
+        jLabelRegistroCompletadoLogo.setForeground(new java.awt.Color(102, 102, 102));
+        jLabelRegistroCompletadoLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelRegistroCompletadoLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cabezera_registro.png"))); // NOI18N
+        jLabelRegistroCompletadoLogo.setText("REGISTRO COMPLETADO");
+        JPanelReciboReg.add(jLabelRegistroCompletadoLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1325, 190));
+
+        jButtonContinuar.setBackground(new java.awt.Color(214, 173, 96));
+        jButtonContinuar.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jButtonContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-accede-redondeado-derecho-32.png"))); // NOI18N
+        jButtonContinuar.setText("Continuar");
+        jButtonContinuar.setBorder(null);
+        jButtonContinuar.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jButtonContinuar.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                jButtonContinuarMouseMoved(evt);
+            }
+        });
+        jButtonContinuar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonContinuarMouseExited(evt);
+            }
+        });
+        jButtonContinuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonContinuarActionPerformed(evt);
+            }
+        });
+        JPanelReciboReg.add(jButtonContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 650, 210, 40));
+
+        jLabelCiudadConf.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jLabelCiudadConf.setText("Ciudad de origen:");
+        JPanelReciboReg.add(jLabelCiudadConf, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 310, 260, 40));
+
+        jLabelFechaSalConf.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jLabelFechaSalConf.setText("Fecha de salida:");
+        JPanelReciboReg.add(jLabelFechaSalConf, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, 260, 40));
+
+        jLabelNombreConf.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jLabelNombreConf.setText("Nombre del huésped: ");
+        JPanelReciboReg.add(jLabelNombreConf, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 260, 40));
+
+        jLabelFechaIngConf1.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jLabelFechaIngConf1.setText("Fecha de ingreso:");
+        JPanelReciboReg.add(jLabelFechaIngConf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 360, 260, 40));
+
+        jLabelFechaSalConfU.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelFechaSalConfU.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelFechaSalConfU.setText("Fecha de salida:");
+        JPanelReciboReg.add(jLabelFechaSalConfU, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 410, 540, 40));
+
+        jLabelFechaIngConfU.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelFechaIngConfU.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelFechaIngConfU.setText("Fecha de ingreso:");
+        JPanelReciboReg.add(jLabelFechaIngConfU, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 360, 540, 40));
+
+        jLabelCiudadConfU.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelCiudadConfU.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelCiudadConfU.setText("Ciudad de origen:");
+        JPanelReciboReg.add(jLabelCiudadConfU, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 310, 530, 40));
+
+        jLabelNombreConfU.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelNombreConfU.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelNombreConfU.setText("nombre ejemplo paaaa");
+        JPanelReciboReg.add(jLabelNombreConfU, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 260, 530, 40));
+
+        jLabelNumeroHabConf.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jLabelNumeroHabConf.setText("Numero de habitación:");
+        JPanelReciboReg.add(jLabelNumeroHabConf, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, 210, 40));
+
+        jLabelNumeroHabConfU.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelNumeroHabConfU.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelNumeroHabConfU.setText("123");
+        JPanelReciboReg.add(jLabelNumeroHabConfU, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 520, 60, 40));
+
+        jLabelNumeroPisoConf.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jLabelNumeroPisoConf.setText("Piso:");
+        JPanelReciboReg.add(jLabelNumeroPisoConf, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 520, 60, 40));
+
+        jLabelPisoU.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelPisoU.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelPisoU.setText("2");
+        JPanelReciboReg.add(jLabelPisoU, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 520, 30, 40));
+
+        jLabelTipo.setFont(new java.awt.Font("Gadugi", 0, 18)); // NOI18N
+        jLabelTipo.setText("Tipo de habitación:");
+        JPanelReciboReg.add(jLabelTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 570, 210, 40));
+
+        jLabelTipoU.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelTipoU.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelTipoU.setText("Sencilla");
+        JPanelReciboReg.add(jLabelTipoU, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 570, 80, 40));
+
+        jLabelDatosCliente.setFont(new java.awt.Font("Decker", 0, 22)); // NOI18N
+        jLabelDatosCliente.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelDatosCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelDatosCliente.setText("Datos del huésped");
+        JPanelReciboReg.add(jLabelDatosCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 1325, 40));
+
+        jSeparatorCiudadOrig2.setBackground(new java.awt.Color(214, 173, 96));
+        jSeparatorCiudadOrig2.setForeground(new java.awt.Color(214, 173, 96));
+        JPanelReciboReg.add(jSeparatorCiudadOrig2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, 605, 10));
+
+        jLabelDatosCliente1.setFont(new java.awt.Font("Decker", 0, 22)); // NOI18N
+        jLabelDatosCliente1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelDatosCliente1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelDatosCliente1.setText("Datos de la habitación");
+        JPanelReciboReg.add(jLabelDatosCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 1325, 40));
+
+        jSeparatorCiudadOrig3.setBackground(new java.awt.Color(214, 173, 96));
+        jSeparatorCiudadOrig3.setForeground(new java.awt.Color(214, 173, 96));
+        JPanelReciboReg.add(jSeparatorCiudadOrig3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 500, 605, 10));
+
+        jLabelLimite.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jLabelLimite.setText("Limite:");
+        JPanelReciboReg.add(jLabelLimite, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 570, 60, 40));
+
+        jLabelLimiteT.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelLimiteT.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelLimiteT.setText("2");
+        JPanelReciboReg.add(jLabelLimiteT, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 570, 20, 40));
+
+        jLabelTipoD1.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelTipoD1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelTipoD1.setText("huésped");
+        JPanelReciboReg.add(jLabelTipoD1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 570, 120, 40));
+
+        jCheckBoxDosExtraConf.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBoxDosExtraConf.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jCheckBoxDosExtraConf.setText("2 personas extra");
+        jCheckBoxDosExtraConf.setEnabled(false);
+        JPanelReciboReg.add(jCheckBoxDosExtraConf, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 670, -1, 30));
+
+        jLabelTotalOcupantes.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jLabelTotalOcupantes.setText("Total de ocupantes de la habitación:");
+        JPanelReciboReg.add(jLabelTotalOcupantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 620, 320, 40));
+
+        jLabelTipoD2.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelTipoD2.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelTipoD2.setText("huésped");
+        JPanelReciboReg.add(jLabelTipoD2, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 620, 120, 40));
+
+        jLabelOcupantes.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+        jLabelOcupantes.setForeground(new java.awt.Color(51, 51, 51));
+        jLabelOcupantes.setText("2");
+        JPanelReciboReg.add(jLabelOcupantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 620, 20, 40));
+
+        jCheckBoxExtraConf.setBackground(new java.awt.Color(255, 255, 255));
+        jCheckBoxExtraConf.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
+        jCheckBoxExtraConf.setText("1 persona extra");
+        jCheckBoxExtraConf.setEnabled(false);
+        JPanelReciboReg.add(jCheckBoxExtraConf, new org.netbeans.lib.awtextra.AbsoluteConstraints(485, 670, -1, 30));
+
+        add(JPanelReciboReg, new org.netbeans.lib.awtextra.AbsoluteConstraints(1315, 0, -1, 725));
+
         jLabelHeader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/registroHeader.png"))); // NOI18N
         add(jLabelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 145));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanelDatos.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelDatos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextFieldNombre.setFont(new java.awt.Font("Decker", 0, 17)); // NOI18N
         jTextFieldNombre.setForeground(new java.awt.Color(51, 51, 51));
@@ -101,41 +295,64 @@ public class JPanelRegistro extends javax.swing.JPanel {
                 jTextFieldNombreActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 280, 30));
+        jPanelDatos.add(jTextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 280, 30));
 
         jLabelNombre.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
         jLabelNombre.setForeground(new java.awt.Color(51, 51, 51));
         jLabelNombre.setText("Nombre:");
-        jPanel3.add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 150, 30));
+        jPanelDatos.add(jLabelNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 150, 30));
 
         jSeparatorNombre.setBackground(new java.awt.Color(160, 160, 160));
-        jPanel3.add(jSeparatorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 280, 10));
+        jPanelDatos.add(jSeparatorNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 280, 10));
 
         jLabelPersonas.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
         jLabelPersonas.setForeground(new java.awt.Color(51, 51, 51));
         jLabelPersonas.setText("Personas:");
-        jPanel3.add(jLabelPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 120, 30));
+        jPanelDatos.add(jLabelPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 120, 30));
 
         jComboBoxTipo.setFont(new java.awt.Font("Decker", 0, 17)); // NOI18N
         jComboBoxTipo.setForeground(new java.awt.Color(51, 51, 51));
         jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sencilla", "Doble", "Suite" }));
-        jPanel3.add(jComboBoxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 230, 280, 30));
+        jComboBoxTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxTipoActionPerformed(evt);
+            }
+        });
+        jPanelDatos.add(jComboBoxTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, 280, 30));
 
         jLabelPersonas1.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
         jLabelPersonas1.setForeground(new java.awt.Color(51, 51, 51));
         jLabelPersonas1.setText("Días a hospedar:");
-        jPanel3.add(jLabelPersonas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 290, 150, 30));
+        jPanelDatos.add(jLabelPersonas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 150, 30));
 
         jDateChooserIngreso.setBackground(new java.awt.Color(255, 255, 255));
         jDateChooserIngreso.setForeground(new java.awt.Color(102, 102, 102));
         jDateChooserIngreso.setFont(new java.awt.Font("Decker", 0, 17)); // NOI18N
         jDateChooserIngreso.setMinSelectableDate(new java.util.Date());
-        jPanel3.add(jDateChooserIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 190, 30));
+        jDateChooserIngreso.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jDateChooserIngresoFocusGained(evt);
+            }
+        });
+        jDateChooserIngreso.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jDateChooserIngresoMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jDateChooserIngresoMouseEntered(evt);
+            }
+        });
+        jDateChooserIngreso.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooserIngresoPropertyChange(evt);
+            }
+        });
+        jPanelDatos.add(jDateChooserIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 190, 30));
 
         jLabelCiudadOrigen.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
         jLabelCiudadOrigen.setForeground(new java.awt.Color(51, 51, 51));
         jLabelCiudadOrigen.setText("Ciudad de origen:");
-        jPanel3.add(jLabelCiudadOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 150, 30));
+        jPanelDatos.add(jLabelCiudadOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 150, 30));
 
         jTextFieldCiudadOrigen.setFont(new java.awt.Font("Decker", 0, 17)); // NOI18N
         jTextFieldCiudadOrigen.setForeground(new java.awt.Color(51, 51, 51));
@@ -155,35 +372,45 @@ public class JPanelRegistro extends javax.swing.JPanel {
                 jTextFieldCiudadOrigenActionPerformed(evt);
             }
         });
-        jPanel3.add(jTextFieldCiudadOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 280, 30));
+        jPanelDatos.add(jTextFieldCiudadOrigen, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 130, 280, 30));
 
         jSeparatorCiudadOrig.setBackground(new java.awt.Color(160, 160, 160));
-        jPanel3.add(jSeparatorCiudadOrig, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 280, 10));
+        jPanelDatos.add(jSeparatorCiudadOrig, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 280, 10));
 
-        jSpinner1.setFont(new java.awt.Font("Decker", 0, 17)); // NOI18N
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        jPanel3.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 190, 30));
+        jSpinnerNumDias.setFont(new java.awt.Font("Decker", 0, 17)); // NOI18N
+        jSpinnerNumDias.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jSpinnerNumDias.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinnerNumDiasStateChanged(evt);
+            }
+        });
+        jSpinnerNumDias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jSpinnerNumDiasMouseClicked(evt);
+            }
+        });
+        jPanelDatos.add(jSpinnerNumDias, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 190, 30));
 
         jLabelFechaIngreso.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
         jLabelFechaIngreso.setForeground(new java.awt.Color(51, 51, 51));
         jLabelFechaIngreso.setText("Fecha Salida:");
-        jPanel3.add(jLabelFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 190, 30));
+        jPanelDatos.add(jLabelFechaIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 190, 30));
 
         jDateChooserSalida.setBackground(new java.awt.Color(255, 255, 255));
         jDateChooserSalida.setForeground(new java.awt.Color(102, 102, 102));
         jDateChooserSalida.setEnabled(false);
         jDateChooserSalida.setFont(new java.awt.Font("Dubai", 0, 17)); // NOI18N
-        jPanel3.add(jDateChooserSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 190, 30));
+        jPanelDatos.add(jDateChooserSalida, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 190, 30));
 
         jLabelFechaIngreso1.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
         jLabelFechaIngreso1.setForeground(new java.awt.Color(51, 51, 51));
         jLabelFechaIngreso1.setText("Fecha ingreso:");
-        jPanel3.add(jLabelFechaIngreso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 190, 30));
+        jPanelDatos.add(jLabelFechaIngreso1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 190, 30));
 
         jSeparatorCiudadOrig1.setBackground(new java.awt.Color(214, 173, 96));
         jSeparatorCiudadOrig1.setForeground(new java.awt.Color(214, 173, 96));
         jSeparatorCiudadOrig1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel3.add(jSeparatorCiudadOrig1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 10, 430));
+        jPanelDatos.add(jSeparatorCiudadOrig1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 50, 10, 430));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
@@ -210,7 +437,7 @@ public class JPanelRegistro extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, 120, 40));
+        jPanelDatos.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, 120, 40));
 
         jCheckBoxDosExtra.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxDosExtra.setFont(new java.awt.Font("Decker", 0, 17)); // NOI18N
@@ -221,7 +448,7 @@ public class JPanelRegistro extends javax.swing.JPanel {
                 jCheckBoxDosExtraActionPerformed(evt);
             }
         });
-        jPanel3.add(jCheckBoxDosExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 170, 30));
+        jPanelDatos.add(jCheckBoxDosExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 400, 170, 30));
 
         jCheckBoxUnaExtra.setBackground(new java.awt.Color(255, 255, 255));
         jCheckBoxUnaExtra.setFont(new java.awt.Font("Decker", 0, 17)); // NOI18N
@@ -232,17 +459,22 @@ public class JPanelRegistro extends javax.swing.JPanel {
                 jCheckBoxUnaExtraActionPerformed(evt);
             }
         });
-        jPanel3.add(jCheckBoxUnaExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 160, 30));
+        jPanelDatos.add(jCheckBoxUnaExtra, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 400, 160, 30));
 
         jLabelPersonas2.setFont(new java.awt.Font("Decker", 0, 18)); // NOI18N
         jLabelPersonas2.setForeground(new java.awt.Color(51, 51, 51));
         jLabelPersonas2.setText("Tipo de habitacion:");
-        jPanel3.add(jLabelPersonas2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 190, 30));
+        jPanelDatos.add(jLabelPersonas2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 190, 30));
 
         jComboBoxPersonas.setFont(new java.awt.Font("Decker", 0, 17)); // NOI18N
         jComboBoxPersonas.setForeground(new java.awt.Color(51, 51, 51));
-        jComboBoxPersonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3" }));
-        jPanel3.add(jComboBoxPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 280, 30));
+        jComboBoxPersonas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        jComboBoxPersonas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxPersonasActionPerformed(evt);
+            }
+        });
+        jPanelDatos.add(jComboBoxPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 280, 30));
 
         jScrollPane2.setBorder(null);
 
@@ -251,9 +483,9 @@ public class JPanelRegistro extends javax.swing.JPanel {
         jTextPane1.setForeground(new java.awt.Color(255, 0, 51));
         jScrollPane2.setViewportView(jTextPane1);
 
-        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 620, 70));
+        jPanelDatos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 20, 770, 70));
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, 550));
+        add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, 550));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setBorder(null);
@@ -304,6 +536,9 @@ public class JPanelRegistro extends javax.swing.JPanel {
         return calendar.getTime(); // Devuelve el objeto Date con los nuevos días añadidos
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        buscarHabitacionesValidas();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void buscarHabitacionesValidas() {
         this.jPanelDisponibles.removeAll();
         this.jPanelDisponibles.updateUI();
         this.botones.clear();
@@ -329,27 +564,33 @@ public class JPanelRegistro extends javax.swing.JPanel {
             return;
         }
 
-        this.jDateChooserSalida.setDate(sumarRestarDiasFecha(this.jDateChooserIngreso.getDate(), (int) this.jSpinner1.getValue()));
+        this.jDateChooserSalida.setDate(sumarRestarDiasFecha(this.jDateChooserIngreso.getDate(), (int) this.jSpinnerNumDias.getValue()));
         String query = "select * from habitacion where tipo =  '" + (this.jComboBoxTipo.getSelectedIndex() + 1) + "'";
         this.conn.Consult(query);
         int x = 20, y = 40;
         int i = 0;
         try {
             if (this.conn.rs.getRow() == 0) {
-                JOptionPane.showMessageDialog(null, "No hay elementos en la lista o no se pudo realizar la conexion");
+                this.jTextPane1.setText("No hay habitaciones " + this.jComboBoxTipo.getSelectedItem() + "s disponibles en este momento\n");
                 return;
             }
             while (this.conn.rs != null) {
-                if(i==02){
-                    x=20; y+=150;
-                    i=0;
+                if (i == 02) {
+                    x = 20;
+                    y += 150;
+                    i = 0;
                 }
                 int habitacion = this.conn.rs.getInt("numero");
-                
+
                 boolean ocupado = this.conn.rs.getBoolean("estado");
                 JButton boton = new JButton("Habitacion " + habitacion);
                 boton.setName("Habitacion " + habitacion);
-               
+                boton.setFont(new java.awt.Font("Decker", 1, 18)); // NOI18N
+
+                boton.setForeground(new java.awt.Color(255, 255, 255));
+                boton.setIcon(new javax.swing.ImageIcon(getClass().getResource(this.conn.rs.getString("imagenRuta"))));
+                boton.setHorizontalTextPosition(SwingConstants.CENTER);
+                boton.setVerticalTextPosition(SwingConstants.CENTER);
                 boton.setBounds(x, y, 220, 130);
                 boton.setVisible(true);
                 if (ocupado) {
@@ -363,11 +604,11 @@ public class JPanelRegistro extends javax.swing.JPanel {
                 });
                 //this.jPanelDisponibles.getLayout().addLayoutComponent(boton.getName(), boton);
                 //this.jPanelDisponibles.add(boton);
-                this.jPanelDisponibles.add(boton, new AbsoluteConstraints(x,y,220,130));
+                this.jPanelDisponibles.add(boton, new AbsoluteConstraints(x, y, 220, 130));
                 this.botones.add(boton);
                 this.jPanelDisponibles.updateUI();
                 i++;
-                x+=240; 
+                x += 240;
                 try {
                     this.conn.rs.next();
                 } catch (Exception e) {
@@ -378,64 +619,248 @@ public class JPanelRegistro extends javax.swing.JPanel {
         } catch (SQLException ex) {
 
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
+
     private void botonDinamicoActionPerformed(java.awt.event.ActionEvent evt) {
-        String x =  evt.getActionCommand();
+        String x = evt.getActionCommand();
         int numeroHab = Integer.parseInt(x.substring(11, 14));
-        
-        
+        String nombreCliente = this.jTextFieldNombre.getText().trim();
+        String ciudadClientee = this.jTextFieldCiudadOrigen.getText().trim();
+        java.sql.Date dateIngreso = new java.sql.Date(this.jDateChooserIngreso.getDate().getTime());
+        java.sql.Date dateSalida = new java.sql.Date(this.jDateChooserSalida.getDate().getTime());
+        int tipo = (this.jComboBoxTipo.getSelectedIndex() + 1);
+        int personas = this.jComboBoxPersonas.getSelectedIndex() + 1;
+        String query3 = "Select piso from habitacion WHERE numero = '" + numeroHab + "'";
+        int piso = 0;
+        this.conn.Consult(query3);
+        try {
+            piso = this.conn.rs.getInt("piso");
+        } catch (SQLException ex) {
+
+        }
+        int extra = 0;
         int dialog = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "¿Seleccionar la habitacion " + numeroHab +"?", "Confirmar", dialog);
+        int result = JOptionPane.showConfirmDialog(null, "¿Seleccionar la habitacion " + numeroHab + "?", "Confirmar", dialog);
         if (result == 0) {
+
+            if (this.jCheckBoxUnaExtra.isSelected()) {
+                extra = 1;
+                //personas+=1;
+            }
+            if (this.jCheckBoxDosExtra.isSelected()) {
+                //personas+=2;
+                extra = 2;
+            }
+            String query2 = "INSERT INTO `registro` (`nomCliente`, `numHabitacion`, `fechaIn`, `fechaOut`, `personasExtra`, "
+                    + "	`CiudadCliente`, `tipoHabitacion`, `ocupantes`) VALUES ('" + nombreCliente + "', '" + numeroHab + "', '" + dateIngreso + "', '" + dateSalida + "', '"
+                    + extra + "','" + ciudadClientee + "','" + tipo + "','" + personas + "');";
+            int i = this.conn.Update(query2);
+            if (i == 0) {
+                this.jTextPane1.setText("No se ha realizado la operacion");
+                return;
+            }
             String query = "UPDATE habitacion "
                     + "SET estado = 1 WHERE numero = " + numeroHab;
-            int j=  this.conn.Update(query);
-            if (j==0){
+            int j = this.conn.Update(query);
+            if (j == 0) {
                 this.jTextPane1.setText("No se ha realizado la operacion");
-                
-            }
-            else{
-                this.jTextPane1.setForeground(Color.GREEN);
-                this.jTextPane1.setText("Registro Concretado");
-                
+
+            } else {
+                DateFormat formateadorFechaCompleta = DateFormat.getDateInstance(DateFormat.FULL);
+
+                Slide slide = new Slide();
+                this.jLabelNombreConfU.setText(nombreCliente);
+                this.jLabelCiudadConfU.setText(ciudadClientee);
+                this.jLabelFechaIngConfU.setText(formateadorFechaCompleta.format(dateIngreso));
+                this.jLabelFechaSalConfU.setText(formateadorFechaCompleta.format(dateSalida));
+                this.jLabelNumeroHabConfU.setText("" + numeroHab);
+                String tipoT = "";
+                int limite = 0;
+                if (tipo == 1) {
+                    tipoT = "sencilla";
+                    limite = 1;
+                }
+                if (tipo == 2) {
+                    tipoT = "doble";
+                    limite = 2;
+                }
+                if (tipo == 3) {
+                    tipoT = "suite";
+                    limite = 3;
+                }
+                this.jLabelLimiteT.setText("" + limite);
+                this.jLabelPisoU.setText("" + piso);
+                this.jLabelOcupantes.setText("" + personas);
+                this.jCheckBoxDosExtraConf.setSelected(false);
+                this.jCheckBoxExtraConf.setSelected(false);
+                if (extra == 1) {
+                    this.jCheckBoxExtraConf.setSelected(true);
+                }
+                if (extra == 2) {
+                    this.jCheckBoxDosExtraConf.setSelected(true);
+                }
+                this.jLabelTipoU.setText(tipoT);
+                this.jPanelDatos.setVisible(false);
+                this.jScrollPane1.setVisible(false);
+                slide.jPanelXIzquierda(1315, 0, 10, 5, JPanelReciboReg);
+
             }
         }
     }
     private void jCheckBoxUnaExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxUnaExtraActionPerformed
-        if (this.jCheckBoxUnaExtra.isSelected())
-            this.jCheckBoxDosExtra.setSelected(false);
+        if (this.jCheckBoxUnaExtra.isSelected()) {
+            try {
+                this.jCheckBoxDosExtra.setSelected(false);
+                String query = "Select costoPersonExtra from costos";
+                this.conn.Consult(query);
+                float costoPersonaExtra = this.conn.rs.getFloat("costoPersonExtra");
+                JOptionPane.showMessageDialog(null, "Informa al cliente que el incluir una persona extra tiene un costo de $" + costoPersonaExtra + " por noche", "Atención", JOptionPane.WARNING_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(JPanelRegistro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+        buscarHabitacionesValidas();
     }//GEN-LAST:event_jCheckBoxUnaExtraActionPerformed
 
     private void jCheckBoxDosExtraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxDosExtraActionPerformed
-        if (this.jCheckBoxDosExtra.isSelected())
-            this.jCheckBoxUnaExtra.setSelected(false);
+        if (this.jCheckBoxDosExtra.isSelected()) {
+            try {
+                this.jCheckBoxUnaExtra.setSelected(false);
+                String query = "Select costoPersonExtra from costos";
+                this.conn.Consult(query);
+                float costoPersonaExtra = this.conn.rs.getFloat("costoPersonExtra");
+                JOptionPane.showMessageDialog(null, "Informa al cliente que el incluir una persona extra tiene un costo de $" + costoPersonaExtra + " por noche", "Atención", JOptionPane.WARNING_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(JPanelRegistro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        buscarHabitacionesValidas();
     }//GEN-LAST:event_jCheckBoxDosExtraActionPerformed
 
+    private void jComboBoxPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPersonasActionPerformed
+        buscarHabitacionesValidas();
+    }//GEN-LAST:event_jComboBoxPersonasActionPerformed
+
+    private void jComboBoxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoActionPerformed
+        buscarHabitacionesValidas();
+    }//GEN-LAST:event_jComboBoxTipoActionPerformed
+
+    private void jSpinnerNumDiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSpinnerNumDiasMouseClicked
+        this.jDateChooserSalida.setDate(sumarRestarDiasFecha(this.jDateChooserIngreso.getDate(), (int) this.jSpinnerNumDias.getValue()));
+    }//GEN-LAST:event_jSpinnerNumDiasMouseClicked
+
+    private void jSpinnerNumDiasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerNumDiasStateChanged
+        this.jDateChooserSalida.setDate(sumarRestarDiasFecha(this.jDateChooserIngreso.getDate(), (int) this.jSpinnerNumDias.getValue()));
+
+    }//GEN-LAST:event_jSpinnerNumDiasStateChanged
+
+    private void jDateChooserIngresoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooserIngresoMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDateChooserIngresoMouseEntered
+
+    private void jDateChooserIngresoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDateChooserIngresoMouseClicked
+
+
+    }//GEN-LAST:event_jDateChooserIngresoMouseClicked
+
+    private void jDateChooserIngresoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jDateChooserIngresoFocusGained
+        this.jDateChooserSalida.setDate(sumarRestarDiasFecha(this.jDateChooserIngreso.getDate(), (int) this.jSpinnerNumDias.getValue()));
+
+    }//GEN-LAST:event_jDateChooserIngresoFocusGained
+
+    private void jDateChooserIngresoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooserIngresoPropertyChange
+        try {
+            this.jDateChooserSalida.setDate(sumarRestarDiasFecha(this.jDateChooserIngreso.getDate(), (int) this.jSpinnerNumDias.getValue()));
+        } catch (java.lang.NullPointerException ex) {
+        }
+
+
+    }//GEN-LAST:event_jDateChooserIngresoPropertyChange
+
+    private void jButtonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonContinuarActionPerformed
+       this.jButtonContinuar.setBackground(new Color(214,173,96));
+        Slide x = new Slide();
+        x.jPanelXDerecha(0, 1315, 10, 5, this.JPanelReciboReg);
+        this.jPanelDatos.setVisible(true);
+        this.jScrollPane1.setVisible(true);
+        limpiar();
+    }//GEN-LAST:event_jButtonContinuarActionPerformed
+
+    private void jButtonContinuarMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonContinuarMouseMoved
+        this.jButtonContinuar.setBackground(new Color(198,150,61));
+    }//GEN-LAST:event_jButtonContinuarMouseMoved
+
+    private void jButtonContinuarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonContinuarMouseExited
+        this.jButtonContinuar.setBackground(new Color(214,173,96));
+    }//GEN-LAST:event_jButtonContinuarMouseExited
+    private void limpiar() {
+        this.botones.clear();
+        this.jTextFieldCiudadOrigen.setText("");
+        this.jTextFieldNombre.setText("");
+        this.jComboBoxTipo.setSelectedIndex(0);
+        this.jCheckBoxUnaExtra.setSelected(false);
+        this.jCheckBoxDosExtra.setSelected(false);
+        this.jDateChooserIngreso.setDate(new java.util.Date());
+        this.jDateChooserSalida.setDate(null);
+        this.jSpinnerNumDias.setValue(1);
+        this.jComboBoxPersonas.setSelectedIndex(0);
+        this.jTextPane1.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel JPanelReciboReg;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonContinuar;
     private javax.swing.JCheckBox jCheckBoxDosExtra;
+    private javax.swing.JCheckBox jCheckBoxDosExtraConf;
+    private javax.swing.JCheckBox jCheckBoxExtraConf;
     private javax.swing.JCheckBox jCheckBoxUnaExtra;
     private javax.swing.JComboBox<String> jComboBoxPersonas;
     private javax.swing.JComboBox<String> jComboBoxTipo;
     private com.toedter.calendar.JDateChooser jDateChooserIngreso;
     private com.toedter.calendar.JDateChooser jDateChooserSalida;
+    private javax.swing.JLabel jLabelCiudadConf;
+    private javax.swing.JLabel jLabelCiudadConfU;
     private javax.swing.JLabel jLabelCiudadOrigen;
+    private javax.swing.JLabel jLabelDatosCliente;
+    private javax.swing.JLabel jLabelDatosCliente1;
+    private javax.swing.JLabel jLabelFechaIngConf1;
+    private javax.swing.JLabel jLabelFechaIngConfU;
     private javax.swing.JLabel jLabelFechaIngreso;
     private javax.swing.JLabel jLabelFechaIngreso1;
+    private javax.swing.JLabel jLabelFechaSalConf;
+    private javax.swing.JLabel jLabelFechaSalConfU;
     private javax.swing.JLabel jLabelHeader;
+    private javax.swing.JLabel jLabelLimite;
+    private javax.swing.JLabel jLabelLimiteT;
     private javax.swing.JLabel jLabelNombre;
+    private javax.swing.JLabel jLabelNombreConf;
+    private javax.swing.JLabel jLabelNombreConfU;
+    private javax.swing.JLabel jLabelNumeroHabConf;
+    private javax.swing.JLabel jLabelNumeroHabConfU;
+    private javax.swing.JLabel jLabelNumeroPisoConf;
+    private javax.swing.JLabel jLabelOcupantes;
     private javax.swing.JLabel jLabelPersonas;
     private javax.swing.JLabel jLabelPersonas1;
     private javax.swing.JLabel jLabelPersonas2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanelDisponibles;
+    private javax.swing.JLabel jLabelPisoU;
+    private javax.swing.JLabel jLabelRegistroCompletadoLogo;
+    private javax.swing.JLabel jLabelTipo;
+    private javax.swing.JLabel jLabelTipoD1;
+    private javax.swing.JLabel jLabelTipoD2;
+    private javax.swing.JLabel jLabelTipoU;
+    private javax.swing.JLabel jLabelTotalOcupantes;
+    private javax.swing.JPanel jPanelDatos;
+    public javax.swing.JPanel jPanelDisponibles;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparatorCiudadOrig;
     private javax.swing.JSeparator jSeparatorCiudadOrig1;
+    private javax.swing.JSeparator jSeparatorCiudadOrig2;
+    private javax.swing.JSeparator jSeparatorCiudadOrig3;
     private javax.swing.JSeparator jSeparatorNombre;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JSpinner jSpinnerNumDias;
     private javax.swing.JTextField jTextFieldCiudadOrigen;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextPane jTextPane1;
