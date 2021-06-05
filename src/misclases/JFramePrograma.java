@@ -53,11 +53,11 @@ public class JFramePrograma extends javax.swing.JFrame {
 
     }
 
-    public JFramePrograma(MySqlConn conn) {
+    public JFramePrograma(MySqlConn conn, String name) {
         this.conn = conn;
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+        this.jLabelUsuarioText.setText(name);
         this.jLabelOpcion.setText("Inicio");
 
         String query = "SELECT * FROM `galeria`";
@@ -138,7 +138,7 @@ public class JFramePrograma extends javax.swing.JFrame {
         jLabelAudio = new javax.swing.JLabel();
         JPanelRegistro = new JPanelRegistro(conn);
         JPanelSalidas = new JPanelSalida(conn);
-        JPanelConsultas = new javax.swing.JPanel();
+        JPanelConsultas = new JPanelConsultas(conn);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -164,6 +164,7 @@ public class JFramePrograma extends javax.swing.JFrame {
         jLabelHome.setBackground(new java.awt.Color(244, 244, 244));
         jLabelHome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home.png"))); // NOI18N
+        jLabelHome.setToolTipText("Inicio");
         jLabelHome.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(214, 173, 96), 3));
         jLabelHome.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabelHome.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -208,6 +209,7 @@ public class JFramePrograma extends javax.swing.JFrame {
         jLabelCheckIn.setBackground(new java.awt.Color(244, 244, 244));
         jLabelCheckIn.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCheckIn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check-in.png"))); // NOI18N
+        jLabelCheckIn.setToolTipText("Registrar Huésped");
         jLabelCheckIn.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jLabelCheckInMouseMoved(evt);
@@ -250,6 +252,7 @@ public class JFramePrograma extends javax.swing.JFrame {
         jLabelCheckOut.setBackground(new java.awt.Color(244, 244, 244));
         jLabelCheckOut.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCheckOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/check-out.png"))); // NOI18N
+        jLabelCheckOut.setToolTipText("Check out huésped");
         jLabelCheckOut.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jLabelCheckOutMouseMoved(evt);
@@ -292,6 +295,7 @@ public class JFramePrograma extends javax.swing.JFrame {
         jLabelBuscarIcon.setBackground(new java.awt.Color(244, 244, 244));
         jLabelBuscarIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelBuscarIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconBuscar.png"))); // NOI18N
+        jLabelBuscarIcon.setToolTipText("Consultas");
         jLabelBuscarIcon.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 jLabelBuscarIconMouseMoved(evt);
@@ -629,7 +633,7 @@ public class JFramePrograma extends javax.swing.JFrame {
                 jLabelSiguenteImagenMouseClicked(evt);
             }
         });
-        jPanelGaleria.add(jLabelSiguenteImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 530, 840, 70));
+        jPanelGaleria.add(jLabelSiguenteImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 520, 840, 70));
 
         jLabelGaleria2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelGaleria2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/galeria0.jpg"))); // NOI18N
@@ -638,7 +642,7 @@ public class JFramePrograma extends javax.swing.JFrame {
                 jLabelGaleria2MouseClicked(evt);
             }
         });
-        jPanelGaleria.add(jLabelGaleria2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 600));
+        jPanelGaleria.add(jLabelGaleria2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, -10, 840, 600));
 
         JPanelInicio.add(jPanelGaleria, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 840, 600));
 
@@ -648,7 +652,7 @@ public class JFramePrograma extends javax.swing.JFrame {
         jLabelGaleriaName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelGaleriaName.setText("NUESTRO LOGO");
         jLabelGaleriaName.setOpaque(true);
-        JPanelInicio.add(jLabelGaleriaName, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 350, 330, 100));
+        JPanelInicio.add(jLabelGaleriaName, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 320, 330, 100));
 
         jLabelAudio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/slider_on.png"))); // NOI18N
         jLabelAudio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -665,8 +669,7 @@ public class JFramePrograma extends javax.swing.JFrame {
         JPanelSalidas.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(JPanelSalidas, "card3");
 
-        JPanelConsultas.setBackground(new java.awt.Color(153, 51, 255));
-        JPanelConsultas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        JPanelConsultas.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(JPanelConsultas, "card2");
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 45, 1315, 725));

@@ -7,6 +7,7 @@ package misclases;
 
 import controlMySQL.MySqlConn;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -673,6 +674,7 @@ public class JPanelSalida extends javax.swing.JPanel {
                             JOptionPane.showMessageDialog(null, "La salida se realizó con exito, pero no se pudo registrar en los ingresos del hotel", "Error en actualización de ingresos", JOptionPane.INFORMATION_MESSAGE);
 
                         }
+                        
                     } catch (SQLException ex) {
                         Logger.getLogger(JPanelSalida.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -703,6 +705,9 @@ public class JPanelSalida extends javax.swing.JPanel {
             this.jCheckBoxServNin.setSelected(false);
             this.jCheckBoxServSPA.setSelected(false);
             this.jCheckBoxServTint.setSelected(false);
+            if(Desktop.isDesktopSupported()){
+                Desktop.getDesktop().open(new File(nombrePDF + ".pdf"));
+            }
         } catch (IOException ex) {
             Logger.getLogger(JPanelSalida.class.getName()).log(Level.SEVERE, null, ex);
         }

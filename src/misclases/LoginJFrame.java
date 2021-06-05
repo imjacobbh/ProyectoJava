@@ -490,7 +490,7 @@ public class LoginJFrame extends javax.swing.JFrame {
                 String contraseñaencriptada = DigestUtils.md5Hex(contraseña);
                 if (contraseñaMySql.equals(contraseñaencriptada)) {
                     JOptionPane.showMessageDialog(null, "Bienvenido al sistema " + cuenta);
-                    new JFramePrograma(conn).setVisible(true);
+                    new JFramePrograma(conn,this.jTextFieldUsuario.getText().trim()).setVisible(true);
                     this.clip.stop();
                     this.dispose();
                 } else {
