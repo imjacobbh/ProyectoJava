@@ -564,6 +564,7 @@ public class JPanelSalida extends javax.swing.JPanel {
             this.insertarLinea(totalDias + "", contentStream, 322, 413, font, fontSize, page, Color.BLACK);
 
             int y = 330;
+            //impresion de lista de servicios
             if (personasExtra > 0) {
                 //nombre del servicio
                 this.insertarLinea("Persona Extra".toUpperCase(), contentStream, 96, y, font, fontSize, page, Color.BLACK);
@@ -638,9 +639,13 @@ public class JPanelSalida extends javax.swing.JPanel {
                 //total
                 this.insertarLinea("$" + 1 * this.servTinto, contentStream, 485, y, font, fontSize, page, Color.BLACK);
                 y -= 25;
-            }
+            }//fin servicios
+            
             DecimalFormat formato1 = new DecimalFormat("#.00");
+            
+            //TOTAL A  PAGAR CON CARGOS EXTRA
             this.insertarLinea("$" + formato1.format(total), contentStream, 485, 136, fontB, fontSize, page, Color.BLACK);
+            
             //Saving the document
             contentStream.close();
             String nombrePDF = "src/recibos/" + this.jTextFieldNNumHab.getText() + "_" + nombre.replace(" ", "_").toLowerCase();

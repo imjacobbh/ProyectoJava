@@ -1792,7 +1792,7 @@ public class JPanelConsultas extends javax.swing.JPanel {
                         datos[i][2] = "Doble";
                     }
                     if (auxTipo == 3) {
-                        datos[i][2] = "Triple";
+                        datos[i][2] = "Suite";
                     }
 
                     this.conn.rs.next(); //avanza al siguiente registro

@@ -40,7 +40,8 @@ public class JPanelRegistro extends javax.swing.JPanel {
         SimpleAttributeSet center = new SimpleAttributeSet();
         StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
         doc.setParagraphAttributes(0, doc.getLength(), center, false);
-
+        TextPrompt x = new TextPrompt("Ingrese nombre del huésped", this.jTextFieldNombre);
+         x = new TextPrompt("Ingrese la ciudad de origen del huésped", this.jTextFieldCiudadOrigen);
     }
 
     public JPanelRegistro() {
@@ -559,6 +560,19 @@ public class JPanelRegistro extends javax.swing.JPanel {
         this.jPanelDisponibles.updateUI();
         this.botones.clear();
         this.jTextPane1.setText("");
+        String queryLleno = "SELECT * FROM REGISTRO";
+        this.conn.Consult(queryLleno);
+        int n=0;
+        try{
+            this.conn.rs.last();//se posiciona en el ultimo elemento de la tabla
+            n = this.conn.rs.getRow();//regresa el numero actual del registro
+            this.conn.rs.first(); //se posiciona en el primer registro de la tabla
+        }catch (Exception e){
+            System.out.println(" Error #1");
+        }
+        if(n == 30){
+            JOptionPane.showMessageDialog(null, "No hay habitaciones disponibles actualmente.","Hotel lleno",JOptionPane.WARNING_MESSAGE);
+        }
         this.jDateChooserSalida.setDate(null);
         if (this.jTextFieldCiudadOrigen.getText().isEmpty() || this.jTextFieldNombre.getText().isEmpty()
                 || this.jDateChooserIngreso.getDate() == null) {

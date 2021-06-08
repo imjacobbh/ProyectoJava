@@ -8,6 +8,8 @@ package misclases;
 import AppPackage.AnimationClass;
 import controlMySQL.MySqlConn;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -101,7 +103,12 @@ public class JFramePrograma extends javax.swing.JFrame {
             ex.printStackTrace();
         }
     }
-
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("images/iconoApp.png"));
+        return retValue;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -141,8 +148,15 @@ public class JFramePrograma extends javax.swing.JFrame {
         JPanelConsultas = new JPanelConsultas(conn);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Hotel Jacob's");
+        setIconImage(getIconImage());
         setUndecorated(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelMenuBar.setBackground(new java.awt.Color(244, 244, 244));
@@ -1263,6 +1277,19 @@ public class JFramePrograma extends javax.swing.JFrame {
             clip.start();
         }
     }//GEN-LAST:event_jLabelAudioMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+         for (double i = 0.0; i <= 1.0; i = i + 0.1) {
+            String val = i + "";
+            float f = Float.valueOf(val);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(20);
+            } catch (Exception e) {
+
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
