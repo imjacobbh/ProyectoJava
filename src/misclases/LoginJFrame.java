@@ -50,7 +50,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             imagenesGaleria.add("/images/galeria" + i + ".jpg");
         }
         try {
-            dirMusic = new File(getClass().getResource("/audio/audioLogin.wav").getPath());
+            dirMusic = new File("src/audio/audioLogin.wav");
             if (dirMusic.exists()) {
                 AudioInputStream audio = AudioSystem.getAudioInputStream(dirMusic);
                 clip = AudioSystem.getClip();
